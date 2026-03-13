@@ -1,0 +1,39 @@
+{
+    "info": {
+        "name": "SimpleMDB_Full_Test",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Movies - List",
+            "request": {
+                "method": "GET",
+                "url": "http://localhost:5000/api/v1/movies?page=1&size=10"
+            }
+        },
+        {
+            "name": "Users - Create",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"name\": \"Test User\", \"email\": \"test@test.com\"}"
+                },
+                "url": "http://localhost:5000/api/v1/users"
+            }
+        },
+        {
+            "name": "Movies - Error 404",
+            "request": {
+                "method": "GET",
+                "url": "http://localhost:5000/api/v1/movies/99999"
+            }
+        }
+    ]
+}
