@@ -18,34 +18,34 @@ public class App : HttpServer
         // 1. Base de Datos Única (Contiene las listas de todo)
         var db = new MemoryDatabase();
 
-        // 2. Repositorios (Capa de Datos - Acceso a las listas de 'db')
+
         var movieRepo = new MemoryMovieRepository(db);
         var actorRepo = new MemoryActorRepository(db);
         var userRepo = new MemoryUserRepository(db);
         var amRepo = new MemoryActorMovieRepository(db);
 
-        // 3. Servicios (Capa de Negocio - Lógica de la aplicación)
+
         var movieServ = new DefaultMovieService(movieRepo);
         var actorServ = new MemoryActorService(actorRepo);
         var userServ = new MemoryUserService(userRepo);
         var amServ = new MemoryActorMovieService(amRepo);
 
-        // 4. Controladores (Capa de API - Manejan las peticiones HTTP)
+
         var movieCtrl = new MoviesController(movieServ);
         var actorCtrl = new ActorsController(actorServ);
         var userCtrl = new UsersController(userServ);
         var amCtrl = new ActorsMoviesController(amServ);
 
-        // 5. Routers Específicos (Definen las rutas de cada recurso)
+
         var movieRouter = new MoviesRouter(movieCtrl);
         var actorRouter = new ActorsRouter(actorCtrl);
         var userRouter = new UsersRouter(userCtrl);
         var amRouter = new ActorsMoviesRouter(amCtrl);
 
-        // 6. Router Principal
+
         var apiRouter = new HttpRouter();
 
-        // Middlewares Globales (Configuración estándar del servidor)
+        // 2. MIDDLEWARES GLOBALES (Se ejecutan en orden, antes de llegar a las rutas)
         router.Use(HttpUtils.StructuredLogging);
         router.Use(HttpUtils.CentralizedErrorHandling);
         router.Use(HttpUtils.AddResponseCorsHeaders);
@@ -55,7 +55,7 @@ public class App : HttpServer
         router.UseParametrizedRouteMatching();
 
         // 7. REGISTRO DE RUTAS (VERSIONAMIENTO)
-        // Registramos el prefijo /api/v1
+
         router.UseRouter("/api/v1", apiRouter);
 
         // Registramos cada recurso dentro de /api/v1
