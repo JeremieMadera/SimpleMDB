@@ -1,15 +1,33 @@
 namespace Smdb.Core.Db;
 
 using Smdb.Core.Movies;
+using Smdb.Core.Actors;
+using Smdb.Core.Users;
+using Smdb.Core.ActorsMovies;
 public class MemoryDatabase
 {
     public List<Movie> Movies { get; }
+    public List<Actor> Actors { get; }
+    public List<User> Users { get; }
+    public List<ActorMovie> ActorsMovies { get; }
     private int nextMovieId;
+    private int nextActorId;
+    private int nextUserId;
     public MemoryDatabase()
     {
         Movies = [];
+        Actors = [];
+        Users = [];
+        ActorsMovies = [];
+
+
         SeedMovies();
+        SeedActors();
+        SeedUsers();
+
         nextMovieId = Movies.Count;
+        nextActorId = Actors.Count;
+        nextUserId = Users.Count;
     }
     private void SeedMovies()
     {
@@ -67,8 +85,28 @@ new Movie(49, "Inside Out", 2015, "A girl’s emotions guide her through a diffi
 new Movie(50, "The Social Network", 2010, "Facebook’s founding sparks friendship and legal battles.")
     });
     }
-    public int NextMovieId()
+
+    public int NextMovieId() => ++nextMovieId;
+    public int NextActorId() => ++nextActorId;
+    public int NextUserId() => ++nextUserId;
+
+    private void SeedActors()
     {
-        return ++nextMovieId;
+        Actors.AddRange(new Actor[]
+        {
+            new Actor(1, "Al Pacino", new DateTime(1940, 4, 25)),
+            new Actor(2, "Marlon Brando", new DateTime(1924, 4, 3)),
+            new Actor(3, "Robert De Niro", new DateTime(1943, 8, 17)),
+            new Actor(4, "Christian Bale", new DateTime(1974, 1, 30))
+        });
+    }
+
+    private void SeedUsers()
+    {
+        Users.AddRange(new User[]
+        {
+            new User(1, "jeremie_dev", "jeremie@example.com"),
+            new User(2, "profesor_inter", "profe@inter.edu")
+        });
     }
 }
