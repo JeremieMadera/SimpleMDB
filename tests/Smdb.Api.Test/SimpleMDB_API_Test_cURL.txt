@@ -1,23 +1,38 @@
-# --- MOVIES ---
-# List (Success)
-curl -X GET "http://localhost:5000/api/v1/movies?page=1&size=10"
-# Read (Success)
-curl -X GET "http://localhost:5000/api/v1/movies/1"
-# Error 404 (Not Found)
-curl -X GET "http://localhost:5000/api/v1/movies/999"
+# ==========================================
+# SUCCESSFUL REQUESTS (CRUD+L) - 5 requests
+# ==========================================
 
-# --- USERS ---
-# Create (Success)
-curl -X POST "http://localhost:5000/api/v1/users" -H "Content-Type: application/json" -d "{\"name\": \"Jeremie\", \"email\": \"jeremie@example.com\"}"
-# Error 400 (Bad Request - Missing Email)
-curl -X POST "http://localhost:5000/api/v1/users" -H "Content-Type: application/json" -d "{\"name\": \"Jeremie\"}"
+# 1. LIST: Get all movies with pagination (200 OK)
+curl -X GET "http://localhost:3000/api/v1/movies?page=1&size=10"
 
-# --- ACTORS ---
-# List (Success)
-curl -X GET "http://localhost:5000/api/v1/actors"
-# Delete (Success)
-curl -X DELETE "http://localhost:5000/api/v1/actors/5"
+# 2. CREATE: Add a new movie (201 Created)
+curl -X POST "http://localhost:3000/api/v1/movies" -H "Content-Type: application/json" -d "{\"title\":\"Inception\",\"year\":2010,\"description\":\"A thief steals secrets.\"}"
 
-# --- ACTORS-MOVIES (Relaciones) ---
-# List (Success)
-curl -X GET "http://localhost:5000/api/v1/actors-movies"
+# 3. READ: Get a specific movie by ID (200 OK)
+curl -X GET "http://localhost:3000/api/v1/movies/1"
+
+# 4. UPDATE: Modify an existing movie (200 OK)
+curl -X PUT "http://localhost:3000/api/v1/movies/1" -H "Content-Type: application/json" -d "{\"title\":\"Inception Updated\",\"year\":2010,\"description\":\"Updated description.\"}"
+
+# 5. DELETE: Remove a movie by ID (200 OK)
+curl -X DELETE "http://localhost:3000/api/v1/movies/2"
+
+
+# ==========================================
+# UNSUCCESSFUL REQUESTS (ERROR HANDLING) - 5 requests
+# ==========================================
+
+# 6. READ: Non-existent ID (404 Not Found)
+curl -X GET "http://localhost:3000/api/v1/movies/9999"
+
+# 7. CREATE: Empty title (400 Bad Request)
+curl -X POST "http://localhost:3000/api/v1/movies" -H "Content-Type: application/json" -d "{\"title\":\"\",\"year\":2010,\"description\":\"Missing title.\"}"
+
+# 8. CREATE: Year out of range (400 Bad Request)
+curl -X POST "http://localhost:3000/api/v1/movies" -H "Content-Type: application/json" -d "{\"title\":\"Bad Year\",\"year\":1800,\"description\":\"Invalid year.\"}"
+
+# 9. LIST: Invalid pagination - page below minimum (400 Bad Request)
+curl -X GET "http://localhost:3000/api/v1/movies?page=-1&size=10"
+
+# 10. DELETE: Non-existent ID (404 Not Found)
+curl -X DELETE "http://localhost:3000/api/v1/movies/9999"

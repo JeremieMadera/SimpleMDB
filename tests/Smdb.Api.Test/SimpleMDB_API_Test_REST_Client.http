@@ -1,37 +1,203 @@
 @baseUrl = http://localhost:5000/api/v1
 
-### MOVIES: Listar todas
+# ==========================================
+# MOVIES
+# ==========================================
+
+# 1. LIST: Get all movies with pagination (200 OK)
 GET {{baseUrl}}/movies?page=1&size=10
 
-### MOVIES: Crear una (Exitoso)
+###
+
+# 2. CREATE: Add a new movie (201 Created)
 POST {{baseUrl}}/movies
 Content-Type: application/json
 
 {
-    "title": "Inception",
-    "year": 2010
+  "title": "Inception",
+  "year": 2010,
+  "description": "A thief steals corporate secrets through use of dream-sharing technology."
 }
 
-### MOVIES: Error 400 (Datos inválidos)
-POST {{baseUrl}}/movies
+###
+
+# 3. READ: Get a specific movie by ID (200 OK)
+GET {{baseUrl}}/movies/1
+
+###
+
+# 4. UPDATE: Modify an existing movie (200 OK)
+PUT {{baseUrl}}/movies/1
 Content-Type: application/json
 
 {
-    "title": "",
-    "year": "error"
+  "title": "Inception Updated",
+  "year": 2010,
+  "description": "Updated plot description."
 }
 
-### ACTORS: Obtener uno por ID
+###
+
+# 5. DELETE: Remove a movie by ID (200 OK)
+DELETE {{baseUrl}}/movies/2
+
+###
+
+# ==========================================
+# ACTORS
+# ==========================================
+
+# 6. LIST: Get all actors (200 OK)
+GET {{baseUrl}}/actors?page=1&size=10
+
+###
+
+# 7. CREATE: Add a new actor (201 Created)
+POST {{baseUrl}}/actors
+Content-Type: application/json
+
+{
+  "name": "Tom Hanks",
+  "birthDate": "1956-07-09T00:00:00"
+}
+
+###
+
+# 8. READ: Get a specific actor by ID (200 OK)
 GET {{baseUrl}}/actors/1
 
-### USERS: Actualizar usuario
-PUT {{baseUrl}}/users/2
+###
+
+# 9. UPDATE: Modify an existing actor (200 OK)
+PUT {{baseUrl}}/actors/1
 Content-Type: application/json
 
 {
-    "name": "Jeremie Madera",
-    "email": "jmadera@universidad.edu"
+  "name": "Al Pacino Updated",
+  "birthDate": "1940-04-25T00:00:00"
 }
 
-### ACTORS-MOVIES: Borrar relación
-DELETE {{baseUrl}}/actors-movies/15
+###
+
+# 10. DELETE: Remove an actor by ID (200 OK)
+DELETE {{baseUrl}}/actors/2
+
+###
+
+# ==========================================
+# USERS
+# ==========================================
+
+# 11. LIST: Get all users (200 OK)
+GET {{baseUrl}}/users?page=1&size=10
+
+###
+
+# 12. CREATE: Add a new user (201 Created)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "username": "new_user",
+  "email": "newuser@example.com"
+}
+
+###
+
+# 13. READ: Get a specific user by ID (200 OK)
+GET {{baseUrl}}/users/1
+
+###
+
+# 14. UPDATE: Modify an existing user (200 OK)
+PUT {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "username": "jeremie_updated",
+  "email": "updated@example.com"
+}
+
+###
+
+# 15. DELETE: Remove a user by ID (200 OK)
+DELETE {{baseUrl}}/users/2
+
+###
+
+# ==========================================
+# ACTORS-MOVIES
+# ==========================================
+
+# 16. LIST: Get all actor-movie relations (200 OK)
+GET {{baseUrl}}/actors-movies?page=1&size=10
+
+###
+
+# 17. CREATE: Link an actor to a movie (201 Created)
+POST {{baseUrl}}/actors-movies
+Content-Type: application/json
+
+{
+  "actorId": 1,
+  "movieId": 1,
+  "role": "Michael Corleone"
+}
+
+###
+
+# 18. READ: Get a specific actor-movie relation by ID (200 OK)
+GET {{baseUrl}}/actors-movies/1
+
+###
+
+# 19. UPDATE: Modify an actor-movie relation (200 OK)
+PUT {{baseUrl}}/actors-movies/1
+Content-Type: application/json
+
+{
+  "actorId": 1,
+  "movieId": 1,
+  "role": "Updated Role"
+}
+
+###
+
+# 20. DELETE: Remove an actor-movie relation (200 OK)
+DELETE {{baseUrl}}/actors-movies/1
+
+###
+
+# 21. READ BY MOVIE: Get all actors for a specific movie (200 OK)
+GET {{baseUrl}}/actors-movies/movie/1
+
+###
+
+# ==========================================
+# ERROR HANDLING
+# ==========================================
+
+# 22. READ: Non-existent movie ID (404 Not Found)
+GET {{baseUrl}}/movies/9999
+
+###
+
+# 23. CREATE: Missing required field (400 Bad Request)
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+  "title": "",
+  "year": 2010,
+  "description": "Missing title."
+}
+
+###
+
+# 24. LIST: Invalid pagination params (400 Bad Request)
+GET {{baseUrl}}/movies?page=-1&size=0
+
+###
+
+# 25. DELETE: Non-existent ID (404 Not Found)
+DELETE {{baseUrl}}/movies/9999

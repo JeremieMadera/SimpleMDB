@@ -1,39 +1,139 @@
 {
     "info": {
-        "name": "SimpleMDB_Full_Test",
+        "name": "SimpleMDB_API_Test_Postman",
+        "description": "Colección para pruebas de API: 5 exitosas y 5 fallidas (CRUD+L) [cite: 22, 28]",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {
-            "name": "Movies - List",
-            "request": {
-                "method": "GET",
-                "url": "http://localhost:5000/api/v1/movies?page=1&size=10"
-            }
-        },
-        {
-            "name": "Users - Create",
-            "request": {
-                "method": "POST",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "value": "application/json"
+            "name": "Success Requests (200/201)",
+            "item": [
+                {
+                    "name": "List Movies - Success",
+                    "request": {
+                        "method": "GET",
+                        "url": "http://localhost:3000/api/v1/movies?page=1&size=10",
+                        "description": "Lista películas con paginación[cite: 3, 4]."
                     }
-                ],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\"name\": \"Test User\", \"email\": \"test@test.com\"}"
                 },
-                "url": "http://localhost:5000/api/v1/users"
-            }
+                {
+                    "name": "Create Movie - Success",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Inception\",\n    \"year\": 2010,\n    \"description\": \"A thief who steals corporate secrets through the use of dream-sharing technology.\"\n}"
+                        },
+                        "url": "http://localhost:3000/api/v1/movies",
+                        "description": "Crea una nueva película[cite: 3]."
+                    }
+                },
+                {
+                    "name": "Read Movie - Success",
+                    "request": {
+                        "method": "GET",
+                        "url": "http://localhost:3000/api/v1/movies/1",
+                        "description": "Obtiene una película por su ID[cite: 3, 4]."
+                    }
+                },
+                {
+                    "name": "Update Movie - Success",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Inception Updated\",\n    \"year\": 2010,\n    \"description\": \"Updated description text.\"\n}"
+                        },
+                        "url": "http://localhost:3000/api/v1/movies/1",
+                        "description": "Actualiza una película existente[cite: 3]."
+                    }
+                },
+                {
+                    "name": "Delete Movie - Success",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "http://localhost:3000/api/v1/movies/1",
+                        "description": "Elimina una película por ID[cite: 3]."
+                    }
+                }
+            ]
         },
         {
-            "name": "Movies - Error 404",
-            "request": {
-                "method": "GET",
-                "url": "http://localhost:5000/api/v1/movies/99999"
-            }
+            "name": "Error Requests (400/404)",
+            "item": [
+                {
+                    "name": "Read Movie - Not Found (404)",
+                    "request": {
+                        "method": "GET",
+                        "url": "http://localhost:3000/api/v1/movies/9999",
+                        "description": "Error 404: ID inexistente[cite: 24]."
+                    }
+                },
+                {
+                    "name": "Create Movie - Malformed (400)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Missing Year and Description\",\n"
+                        },
+                        "url": "http://localhost:3000/api/v1/movies",
+                        "description": "Error 400: JSON mal formado[cite: 24]."
+                    }
+                },
+                {
+                    "name": "Update Movie - Invalid ID (400)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"title\": \"Test\"}"
+                        },
+                        "url": "http://localhost:3000/api/v1/movies/abc",
+                        "description": "Error 400: ID con formato inválido[cite: 24]."
+                    }
+                },
+                {
+                    "name": "Delete Movie - Not Found (404)",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "http://localhost:3000/api/v1/movies/8888",
+                        "description": "Error 404: Intento de borrar recurso inexistente[cite: 24]."
+                    }
+                },
+                {
+                    "name": "List Movies - Invalid Params (400)",
+                    "request": {
+                        "method": "GET",
+                        "url": "http://localhost:3000/api/v1/movies?page=-5&size=invalid",
+                        "description": "Error 400: Parámetros de consulta inválidos[cite: 24]."
+                    }
+                }
+            ]
         }
     ]
 }
