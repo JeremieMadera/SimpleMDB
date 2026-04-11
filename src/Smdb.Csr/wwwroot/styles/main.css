@@ -1,0 +1,377 @@
+/* ============================================================
+   Simple Movie Database — main.css
+   Theme: dark cinema / streaming
+   ============================================================ */
+
+/* ---------- Reset & custom properties ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:          #0f1117;
+  --surface:     #1a1d27;
+  --surface-2:   #22263a;
+  --border:      #2e3250;
+  --accent:      #e50914;
+  --accent-hover:#ff1f2b;
+  --text:        #e8eaf0;
+  --text-muted:  #8b90a8;
+  --success:     #22c55e;
+  --warning:     #f59e0b;
+  --radius:      8px;
+  --radius-lg:   14px;
+  --shadow:      0 4px 24px rgba(0,0,0,.45);
+  --transition:  .18s ease;
+  --font:        'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+h1 { font-size: clamp(1.4rem, 3vw, 2rem); }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.1rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: var(--accent-hover); }
+
+p { color: var(--text-muted); }
+
+/* ---------- Layout ---------- */
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* ---------- Header ---------- */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: .9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .75rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.4);
+}
+
+header h1 {
+  font-size: 1.25rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+header h1::before {
+  content: '🎬';
+  font-size: 1.1rem;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+/* ---------- Main ---------- */
+main {
+  padding-block: 2rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .42rem .9rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: .85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--border);
+  border-color: #3e4470;
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.btn:active { transform: translateY(0); }
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn.danger {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn.danger:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------- Status / alerts ---------- */
+.status {
+  padding: .65rem 1rem;
+  border-radius: var(--radius);
+  font-size: .875rem;
+  margin-bottom: 1.25rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.status:empty { display: none; }
+
+/* ---------- Badge ---------- */
+.badge {
+  display: inline-block;
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+/* ---------- Controls bar (pagination) ---------- */
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-size-container {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-left: auto;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+
+.page-size-container select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: .3rem .5rem;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+/* ---------- Cards grid ---------- */
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), var(--shadow);
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .5rem;
+  font-size: 1rem;
+}
+
+.card h3 .title {
+  flex: 1;
+  color: var(--text);
+}
+
+.row-actions {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Table ---------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+.table th,
+.table td {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  width: 130px;
+  white-space: nowrap;
+}
+
+.table td { color: var(--text); }
+
+.table tr:last-child th,
+.table tr:last-child td { border-bottom: none; }
+
+.table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* ---------- Forms ---------- */
+form.grid {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 520px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.field label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.field input,
+.field textarea,
+.field select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: .95rem;
+  padding: .6rem .85rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(229,9,20,.18);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
+  opacity: .6;
+}
+
+.form-actions {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  padding-top: .25rem;
+}
+
+/* ---------- Welcome page ---------- */
+main .container p {
+  margin-bottom: .6rem;
+  font-size: 1rem;
+}
+
+p.meta {
+  font-size: .82rem;
+  color: var(--text-muted);
+  opacity: .7;
+}
+
+/* ---------- Scrollbar (Webkit) ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3e4470; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  header { flex-direction: column; align-items: flex-start; }
+  .grid.cards { grid-template-columns: 1fr; }
+  .controls { flex-direction: column; align-items: flex-start; }
+  .page-size-container { margin-left: 0; }
+}
