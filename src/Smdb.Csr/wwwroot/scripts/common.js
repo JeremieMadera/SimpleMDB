@@ -31,7 +31,6 @@ export function renderStatus(el, type, message) {
     el.textContent = message;
 }
 export function clearChildren(el) {
-    //while (el.firstChild) el.removeChild(el.firstChild);
     el.replaceChildren();
 }
 export function captureMovieForm(form) {
