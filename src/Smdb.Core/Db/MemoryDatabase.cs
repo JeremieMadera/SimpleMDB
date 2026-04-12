@@ -24,6 +24,7 @@ public class MemoryDatabase
         SeedMovies();
         SeedActors();
         SeedUsers();
+        SeedActorsMovies();
 
         nextMovieId = Movies.Count;
         nextActorId = Actors.Count;
@@ -94,10 +95,36 @@ new Movie(50, "The Social Network", 2010, "Facebook’s founding sparks friendsh
     {
         Actors.AddRange(new Actor[]
         {
-            new Actor(1, "Al Pacino", new DateTime(1940, 4, 25)),
-            new Actor(2, "Marlon Brando", new DateTime(1924, 4, 3)),
-            new Actor(3, "Robert De Niro", new DateTime(1943, 8, 17)),
-            new Actor(4, "Christian Bale", new DateTime(1974, 1, 30))
+            new Actor(1,  "Al Pacino",            new DateTime(1940, 4,  25)),
+            new Actor(2,  "Marlon Brando",         new DateTime(1924, 4,  3)),
+            new Actor(3,  "Robert De Niro",        new DateTime(1943, 8,  17)),
+            new Actor(4,  "Christian Bale",        new DateTime(1974, 1,  30)),
+            new Actor(5,  "Heath Ledger",          new DateTime(1979, 4,  4)),
+            new Actor(6,  "Morgan Freeman",        new DateTime(1937, 6,  1)),
+            new Actor(7,  "Tim Robbins",           new DateTime(1958, 10, 16)),
+            new Actor(8,  "John Travolta",         new DateTime(1954, 2,  18)),
+            new Actor(9,  "Samuel L. Jackson",     new DateTime(1948, 12, 21)),
+            new Actor(10, "Liam Neeson",           new DateTime(1952, 6,  7)),
+            new Actor(11, "Elijah Wood",           new DateTime(1981, 1,  28)),
+            new Actor(12, "Brad Pitt",             new DateTime(1963, 12, 18)),
+            new Actor(13, "Edward Norton",         new DateTime(1969, 8,  18)),
+            new Actor(14, "Tom Hanks",             new DateTime(1956, 7,  9)),
+            new Actor(15, "Leonardo DiCaprio",     new DateTime(1974, 11, 11)),
+            new Actor(16, "Keanu Reeves",          new DateTime(1964, 9,  2)),
+            new Actor(17, "Jodie Foster",          new DateTime(1962, 11, 19)),
+            new Actor(18, "Anthony Hopkins",       new DateTime(1937, 12, 31)),
+            new Actor(19, "Mark Hamill",           new DateTime(1951, 9,  25)),
+            new Actor(20, "Harrison Ford",         new DateTime(1942, 7,  13)),
+            new Actor(21, "Matthew McConaughey",   new DateTime(1969, 11, 4)),
+            new Actor(22, "Song Kang-ho",          new DateTime(1967, 1,  17)),
+            new Actor(23, "Russell Crowe",         new DateTime(1964, 4,  7)),
+            new Actor(24, "Joaquin Phoenix",       new DateTime(1974, 10, 28)),
+            new Actor(25, "Robert Downey Jr.",     new DateTime(1965, 4,  4)),
+            new Actor(26, "Tom Cruise",            new DateTime(1962, 7,  3)),
+            new Actor(27, "Sigourney Weaver",      new DateTime(1949, 10, 8)),
+            new Actor(28, "Jack Nicholson",        new DateTime(1937, 4,  22)),
+            new Actor(29, "Dustin Hoffman",        new DateTime(1937, 8,  8)),
+            new Actor(30, "Matt Damon",            new DateTime(1970, 10, 8)),
         });
     }
 
@@ -107,6 +134,73 @@ new Movie(50, "The Social Network", 2010, "Facebook’s founding sparks friendsh
         {
             new User(1, "jeremie_dev", "jeremie@example.com"),
             new User(2, "profesor_inter", "profe@inter.edu")
+        });
+    }
+
+    private void SeedActorsMovies()
+    {
+        ActorsMovies.AddRange(new ActorMovie[]
+        {
+            // The Godfather (1)
+            new ActorMovie { Id = 1,  ActorId = 1,  MovieId = 1,  Role = "Michael Corleone" },
+            new ActorMovie { Id = 2,  ActorId = 2,  MovieId = 1,  Role = "Vito Corleone" },
+            // The Godfather Part II (2)
+            new ActorMovie { Id = 3,  ActorId = 1,  MovieId = 2,  Role = "Michael Corleone" },
+            new ActorMovie { Id = 4,  ActorId = 3,  MovieId = 2,  Role = "Young Vito Corleone" },
+            // The Dark Knight (3)
+            new ActorMovie { Id = 5,  ActorId = 4,  MovieId = 3,  Role = "Bruce Wayne / Batman" },
+            new ActorMovie { Id = 6,  ActorId = 5,  MovieId = 3,  Role = "The Joker" },
+            // The Shawshank Redemption (4)
+            new ActorMovie { Id = 7,  ActorId = 7,  MovieId = 4,  Role = "Andy Dufresne" },
+            new ActorMovie { Id = 8,  ActorId = 6,  MovieId = 4,  Role = "Ellis Boyd 'Red' Redding" },
+            // Pulp Fiction (5)
+            new ActorMovie { Id = 9,  ActorId = 8,  MovieId = 5,  Role = "Vincent Vega" },
+            new ActorMovie { Id = 10, ActorId = 9,  MovieId = 5,  Role = "Jules Winnfield" },
+            new ActorMovie { Id = 11, ActorId = 12, MovieId = 5,  Role = "Butch Coolidge" },
+            // Schindler's List (6)
+            new ActorMovie { Id = 12, ActorId = 10, MovieId = 6,  Role = "Oskar Schindler" },
+            // The Lord of the Rings (7)
+            new ActorMovie { Id = 13, ActorId = 11, MovieId = 7,  Role = "Frodo Baggins" },
+            // Fight Club (8)
+            new ActorMovie { Id = 14, ActorId = 13, MovieId = 8,  Role = "The Narrator" },
+            new ActorMovie { Id = 15, ActorId = 12, MovieId = 8,  Role = "Tyler Durden" },
+            // Forrest Gump (9)
+            new ActorMovie { Id = 16, ActorId = 14, MovieId = 9,  Role = "Forrest Gump" },
+            // Inception (10)
+            new ActorMovie { Id = 17, ActorId = 15, MovieId = 10, Role = "Dom Cobb" },
+            // The Matrix (11)
+            new ActorMovie { Id = 18, ActorId = 16, MovieId = 11, Role = "Neo" },
+            // Se7en (12)
+            new ActorMovie { Id = 19, ActorId = 12, MovieId = 12, Role = "Detective Mills" },
+            new ActorMovie { Id = 20, ActorId = 6,  MovieId = 12, Role = "Detective Somerset" },
+            // Goodfellas (13)
+            new ActorMovie { Id = 21, ActorId = 3,  MovieId = 13, Role = "James Conway" },
+            // The Silence of the Lambs (14)
+            new ActorMovie { Id = 22, ActorId = 17, MovieId = 14, Role = "Clarice Starling" },
+            new ActorMovie { Id = 23, ActorId = 18, MovieId = 14, Role = "Hannibal Lecter" },
+            // Star Wars IV (15)
+            new ActorMovie { Id = 24, ActorId = 19, MovieId = 15, Role = "Luke Skywalker" },
+            new ActorMovie { Id = 25, ActorId = 20, MovieId = 15, Role = "Han Solo" },
+            // Interstellar (17)
+            new ActorMovie { Id = 26, ActorId = 21, MovieId = 17, Role = "Cooper" },
+            // Parasite (18)
+            new ActorMovie { Id = 27, ActorId = 22, MovieId = 18, Role = "Ki-taek" },
+            // Gladiator (23)
+            new ActorMovie { Id = 28, ActorId = 23, MovieId = 23, Role = "Maximus" },
+            // Joker (45)
+            new ActorMovie { Id = 29, ActorId = 24, MovieId = 45, Role = "Arthur Fleck / Joker" },
+            // Avengers: Endgame (47)
+            new ActorMovie { Id = 30, ActorId = 25, MovieId = 47, Role = "Tony Stark / Iron Man" },
+            // The Departed (26)
+            new ActorMovie { Id = 31, ActorId = 15, MovieId = 26, Role = "Billy Costigan" },
+            new ActorMovie { Id = 32, ActorId = 3,  MovieId = 26, Role = "Frank Costello" },
+            new ActorMovie { Id = 33, ActorId = 30, MovieId = 26, Role = "Colin Sullivan" },
+            // Alien (31)
+            new ActorMovie { Id = 34, ActorId = 27, MovieId = 31, Role = "Ellen Ripley" },
+            // One Flew Over the Cuckoo's Nest (35)
+            new ActorMovie { Id = 35, ActorId = 28, MovieId = 35, Role = "R.P. McMurphy" },
+            // The Graduate (social network adjacent) — The Social Network (50)
+            new ActorMovie { Id = 36, ActorId = 29, MovieId = 9,  Role = "Lt. Dan Taylor" },
         });
     }
 }

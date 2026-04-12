@@ -11,7 +11,7 @@ public class MemoryActorMovieRepository : IActorMovieRepository
     public MemoryActorMovieRepository(MemoryDatabase db)
     {
         this.db = db;
-        nextId = db.ActorsMovies.Count;
+        nextId = db.ActorsMovies.Count > 0 ? db.ActorsMovies.Max(am => am.Id) : 0;
     }
 
     public async Task<PagedResult<ActorMovie>?> ReadActorsMovies(int page, int size)
